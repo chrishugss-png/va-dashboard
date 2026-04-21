@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Containment · 6-Month Rolling · VM / O2</title>
+<meta name="description" content="A clean-sheet view of demand and self-serve performance across Virgin Media and O2 virtual assistants. Six-month rolling.">
+<meta name="theme-color" content="#000000">
+
+<!-- Favicon: inline SVG so no extra file needed -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ccircle cx='22' cy='32' r='10' fill='%23bb0a00'/%3E%3Ccircle cx='42' cy='32' r='10' fill='%23005EB8'/%3E%3C/svg%3E">
+
+<!-- Open Graph / social share -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Containment · 6-Month Rolling · VM / O2">
+<meta property="og:description" content="A clean-sheet view of demand and self-serve performance across Virgin Media and O2 virtual assistants.">
+<meta name="twitter:card" content="summary">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --blue: #005EB8;
+    --red: #bb0a00;
+    --grey-10: rgba(255, 255, 255, 0.04);
+    --grey-20: rgba(255, 255, 255, 0.08);
+    --grey-40: rgba(255, 255, 255, 0.16);
+    --grey-60: rgba(255, 255, 255, 0.40);
+    --grey-80: rgba(255, 255, 255, 0.64);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+
+  .page {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 80px 48px 120px;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+  }
+
+  h1.display {
+    font-size: clamp(56px, 10vw, 144px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-top: 24px;
+  }
+  h1.display .blue {
+    color: var(--blue);
+  }
+  h1.display .red {
+    color: var(--red);
+  }
+
+  h2.section {
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  h2.section .dim {
+    color: var(--grey-40);
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey-80);
+  }
+
+  .lede {
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--grey-80);
+    max-width: 720px;
+    margin-top: 32px;
+    letter-spacing: -0.015em;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--grey-20);
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--grey-20);
+    flex-wrap: wrap;
+  }
+  .hero-meta .item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .hero-meta .k {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+  }
+  .hero-meta .v {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  /* ===== NUMBER BLOCKS ===== */
+  section {
+    padding-top: 120px;
+  }
+
+  .big-number {
+    font-size: clamp(120px, 18vw, 240px);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    font-feature-settings: "tnum" 1;
+  }
+  .big-number .unit {
+    font-size: 0.28em;
+    font-weight: 600;
+    color: var(--grey-60);
+    letter-spacing: -0.02em;
+    margin-left: 0.15em;
+    vertical-align: top;
+    margin-top: 0.3em;
+    display: inline-block;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--grey-20);
+    margin-top: 64px;
+  }
+  .kpi-grid .cell {
+    background: var(--black);
+    padding: 48px 32px;
+  }
+  .kpi-grid .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+    margin-bottom: 20px;
+  }
+  .kpi-grid .num {
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-feature-settings: "tnum" 1;
+  }
+  .kpi-grid .num .u {
+    font-size: 0.35em;
+    font-weight: 500;
+    color: var(--grey-60);
+    margin-left: 0.1em;
+  }
+  .kpi-grid .sub {
+    font-size: 13px;
+    color: var(--grey-60);
+    margin-top: 14px;
+    letter-spacing: -0.005em;
+  }
+
+  /* ===== BRAND COMPARISON ===== */
+  .brand-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--grey-20);
+    margin-top: 64px;
+  }
+  .brand-block {
+    background: var(--black);
+    padding: 64px 48px;
+    position: relative;
+  }
+  .brand-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 48px;
+    height: 3px;
+    background: var(--accent, var(--white));
+  }
+  .brand-block.vm::before { background: var(--red); }
+  .brand-block.o2::before { background: var(--blue); }
+  .brand-block .name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+    margin-bottom: 32px;
+  }
+  .brand-block .total {
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+  .brand-block .tag {
+    font-size: 12px;
+    color: var(--grey-60);
+    margin-top: 8px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .brand-block .containment-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--grey-20);
+  }
+  .brand-block .pct-big {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .brand-block .pct-label {
+    font-size: 13px;
+    color: var(--grey-60);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ===== SPARKLINE ===== */
+  .sparkline-block {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--grey-20);
+  }
+  .sparkline-block svg {
+    width: 100%;
+    height: 120px;
+    display: block;
+  }
+  .sparkline-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+  }
+
+  /* ===== MONTHLY TREND ===== */
+  .trend-wrap {
+    margin-top: 64px;
+    padding: 48px;
+    border: 1px solid var(--grey-20);
+  }
+  .trend-wrap .legend {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-80);
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .trend-svg {
+    width: 100%;
+    height: 380px;
+  }
+
+  /* ===== TABLE ===== */
+  .table-wrap {
+    margin-top: 64px;
+  }
+  .t-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .t-table thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--grey-40);
+  }
+  .t-table thead th.r { text-align: right; }
+  .t-table tbody td {
+    padding: 24px 12px;
+    border-bottom: 1px solid var(--grey-20);
+    font-size: 15px;
+    font-feature-settings: "tnum" 1;
+  }
+  .t-table tbody td.r { text-align: right; }
+  .t-table tbody tr:hover td { background: var(--grey-10); }
+
+  .rank {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--grey-60);
+    margin-right: 16px;
+    display: inline-block;
+    width: 24px;
+  }
+  .intent-name {
+    font-weight: 500;
+  }
+  .brand-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 3px 8px;
+    border: 1px solid var(--grey-40);
+    margin-right: 12px;
+    color: var(--grey-80);
+    vertical-align: middle;
+  }
+  .pct-val {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .mom-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--grey-80);
+  }
+  .mom-val.up { color: var(--white); }
+  .mom-val.down { color: var(--grey-60); }
+
+  /* inline bar in table */
+  .inline-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: flex-end;
+  }
+  .inline-bar {
+    width: 120px;
+    height: 4px;
+    background: var(--grey-20);
+    position: relative;
+  }
+  .inline-bar .fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--white);
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .reveal:not(.in) .inline-bar .fill { width: 0 !important; }
+
+  /* ===== CTA ===== */
+  .cta-block {
+    margin-top: 120px;
+    padding: 80px 48px;
+    border: 1px solid var(--grey-20);
+    text-align: center;
+  }
+  .cta-block h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .cta-block .cta-btn {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 16px 32px;
+    background: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .cta-block .cta-btn:hover {
+    transform: translateY(-2px);
+    background: #0070db;
+  }
+
+  footer {
+    margin-top: 120px;
+    padding-top: 32px;
+    border-top: 1px solid var(--grey-20);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey-60);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  @media (max-width: 840px) {
+    .page { padding: 48px 24px 80px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .brand-compare { grid-template-columns: 1fr; }
+    .hero-meta { gap: 24px; }
+    .brand-block { padding: 40px 28px; }
+    .trend-wrap { padding: 24px; }
+    .inline-bar { width: 80px; }
+  }
+
+  /* ===== UTILITY ===== */
+  .blue { color: var(--blue); }
+  .red { color: var(--red); }
+  .dim { color: var(--grey-40); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" style="padding-top: 0;">
+    <div>
+      <div class="eyebrow reveal in">Containment · Six-Month Rolling</div>
+      <h1 class="display reveal in" style="--delay: 0.1s;">
+        Volume<span class="dim">.</span><br>
+        <span class="red">Containment</span><span class="dim">.</span><br>
+        Signal<span class="dim">.</span>
+      </h1>
+      <p class="lede reveal in" style="--delay: 0.25s;">
+        A clean-sheet view of demand and self-serve performance across Virgin Media and O2 virtual assistants.
+      </p>
+    </div>
+    <div class="hero-meta reveal in" style="--delay: 0.4s;">
+      <div class="item"><span class="k">Period</span><span class="v">Nov — Apr</span></div>
+      <div class="item"><span class="k">Brands</span><span class="v">Virgin Media · O2</span></div>
+      <div class="item"><span class="k">Scope</span><span class="v">Brand · Flow · L3</span></div>
+      <div class="item"><span class="k">Updated</span><span class="v" id="today">—</span></div>
+    </div>
+  </section>
+
+  <!-- ===== HEADLINE NUMBER ===== -->
+  <section>
+    <div class="reveal"><h3>Total Volume · 6-Month Rolling</h3></div>
+    <div class="big-number reveal" style="--delay: 0.1s;" id="heroTotal">—</div>
+    <p class="lede reveal" style="--delay: 0.2s;">
+      Total interactions across both brands. Of which <strong class="red" id="heroContainedInline">—</strong>
+      resolved without an agent — a containment rate of <strong id="heroPctInline">—</strong>.
+    </p>
+
+    <div class="kpi-grid">
+      <div class="cell reveal">
+        <div class="label">Contained</div>
+        <div class="num" id="kContained">—</div>
+        <div class="sub">Resolved in self-serve</div>
+      </div>
+      <div class="cell reveal" style="--delay: 0.1s;">
+        <div class="label">Contain Rate</div>
+        <div class="num" id="kRate">—</div>
+        <div class="sub">Six-month average</div>
+      </div>
+      <div class="cell reveal" style="--delay: 0.2s;">
+        <div class="label">April Rate</div>
+        <div class="num" id="kApr">—</div>
+        <div class="sub">Latest month reading</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRAND SPLIT ===== -->
+  <section>
+    <div class="reveal"><h3>By Brand</h3></div>
+    <h2 class="section reveal" style="--delay: 0.1s;">Two brands.<br><span class="dim">One operating picture.</span></h2>
+
+    <div class="brand-compare">
+      <div class="brand-block vm reveal" style="--delay: 0.15s;">
+        <div class="name">Virgin Media</div>
+        <div class="total" id="vmTotal">—</div>
+        <div class="tag">Total volume · 6M</div>
+        <div class="containment-row">
+          <div class="pct-big" id="vmPct">—</div>
+          <div class="pct-label">Contained</div>
+        </div>
+        <div class="sparkline-block">
+          <svg id="vmSpark" viewBox="0 0 600 120" preserveAspectRatio="none"></svg>
+          <div class="sparkline-labels">
+            <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+          </div>
+        </div>
+      </div>
+      <div class="brand-block o2 reveal" style="--delay: 0.25s;">
+        <div class="name">O2</div>
+        <div class="total" id="o2Total">—</div>
+        <div class="tag">Total volume · 6M</div>
+        <div class="containment-row">
+          <div class="pct-big" id="o2Pct">—</div>
+          <div class="pct-label">Contained</div>
+        </div>
+        <div class="sparkline-block">
+          <svg id="o2Spark" viewBox="0 0 600 120" preserveAspectRatio="none"></svg>
+          <div class="sparkline-labels">
+            <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TREND ===== -->
+  <section>
+    <div class="reveal"><h3>Monthly Trend · Contain %</h3></div>
+    <h2 class="section reveal" style="--delay: 0.1s;">Overview<span class="dim">.</span></h2>
+    <p class="lede reveal" style="--delay: 0.2s;">
+      Both brands have drifted downward over the six-month window.
+    </p>
+
+    <div class="trend-wrap reveal" style="--delay: 0.3s;">
+      <div class="legend">
+        <div><span class="legend-dot" style="background: var(--red)"></span>Virgin Media</div>
+        <div><span class="legend-dot" style="background: var(--blue)"></span>O2</div>
+        <div style="color: var(--grey-60)"><span class="legend-dot" style="background: var(--grey-40)"></span>Combined</div>
+      </div>
+      <svg class="trend-svg" id="trendChart" viewBox="0 0 900 380" preserveAspectRatio="none"></svg>
+    </div>
+  </section>
+
+  <!-- ===== L3 TOP ===== -->
+  <section>
+    <div class="reveal"><h3>Top Sub-Intents · L3</h3></div>
+    <h2 class="section reveal" style="--delay: 0.1s;">Where the <span class="red">weight</span><br><span class="dim">lands.</span></h2>
+    <p class="lede reveal" style="--delay: 0.2s;">
+      The ten largest sub-intents by volume. Blanks excluded — only named L3 destinations are shown.
+    </p>
+
+    <div class="table-wrap reveal" style="--delay: 0.3s;">
+      <table class="t-table">
+        <thead>
+          <tr>
+            <th>Sub-Intent</th>
+            <th class="r">Volume</th>
+            <th class="r">Contain %</th>
+            <th class="r">MoM</th>
+          </tr>
+        </thead>
+        <tbody id="l3Body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== FLOW TOP ===== -->
+  <section>
+    <div class="reveal"><h3>Top Flows</h3></div>
+    <h2 class="section reveal" style="--delay: 0.1s;">Where the <span class="blue">routing</span><br><span class="dim">goes.</span></h2>
+    <p class="lede reveal" style="--delay: 0.2s;">
+      The ten largest conversation flows. Where customers land after classification.
+    </p>
+
+    <div class="table-wrap reveal" style="--delay: 0.3s;">
+      <table class="t-table">
+        <thead>
+          <tr>
+            <th>Flow</th>
+            <th class="r">Volume</th>
+            <th class="r">Contain %</th>
+            <th class="r">MoM</th>
+          </tr>
+        </thead>
+        <tbody id="flowBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section>
+    <div class="cta-block reveal">
+      <h2>Ready to dig into the detail?</h2>
+      <p class="lede" style="margin: 24px auto 0;">Open the underlying workbook or pull the raw rolling extract.</p>
+      <button class="cta-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to top</button>
+    </div>
+  </section>
+
+  <footer>
+    <div>VM · O2 Containment · 6M Rolling</div>
+    <div>Stylized view · L1 intent breakdown excluded</div>
+  </footer>
+
+</div>
+
+<script>
+// ====== DATA ======
+const DATA = {"o2": {"months": ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], "total": [446173, 316555, 314936, 272918, 323054, 180171], "contain": [102520, 61215, 61104, 58042, 71752, 40749], "pct": [23.0, 19.3, 19.4, 21.3, 22.2, 22.6], "total_6m": 1853807, "contain_6m": 395382, "pct_6m": 21.3}, "vm": {"months": ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], "total": [534912, 426467, 414697, 423620, 442013, 207386], "contain": [164540, 127139, 121243, 117595, 122835, 53585], "pct": [30.8, 29.8, 29.2, 27.8, 27.8, 25.8], "total_6m": 2449095, "contain_6m": 706937, "pct_6m": 28.9}, "total": {"months": ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"], "total": [981085, 743022, 729633, 696538, 765067, 387557], "contain": [267060, 188354, 182347, 175637, 194587, 94334], "pct": [27.2, 25.3, 25.0, 25.2, 25.4, 24.3], "total_6m": 4302902, "contain_6m": 1102319, "pct_6m": 25.6}, "l3_top": [{"intent": "VM - reduce costs", "brand": "VM", "total": 334243, "pct": 22.6, "mom": -19.5}, {"intent": "O2 - Cancel", "brand": "O2", "total": 196201, "pct": 27.4, "mom": 1.5}, {"intent": "VM - Is VM available in my area", "brand": "VM", "total": 159113, "pct": 40.9, "mom": 4.3}, {"intent": "VM - Broadband issue", "brand": "VM", "total": 150823, "pct": 67.8, "mom": -0.5}, {"intent": "VM - Cancelling Account", "brand": "VM", "total": 127988, "pct": 17.9, "mom": 1.3}, {"intent": "VM - Check what's in my package", "brand": "VM", "total": 125226, "pct": 31.4, "mom": -28.7}, {"intent": "VM - Price Rise", "brand": "VM", "total": 119126, "pct": 24.6, "mom": 0.7}, {"intent": "O2 - Payment Query", "brand": "O2", "total": 118608, "pct": 4.7, "mom": 0.2}, {"intent": "O2 - Billing Query", "brand": "O2", "total": 109561, "pct": 3.2, "mom": 0.5}, {"intent": "O2 - Struggling To Pay", "brand": "O2", "total": 85644, "pct": 6.6, "mom": 0.4}], "flow_top": [{"flow": "VM - TriageNLU", "brand": "VM", "total": 624399, "pct": 93.0, "mom": -0.4}, {"flow": "VM - RetentionsCancelServices", "brand": "VM", "total": 520808, "pct": 24.4, "mom": 22.4}, {"flow": "O2 - TriageNLU", "brand": "O2", "total": 444261, "pct": 66.9, "mom": 38.1}, {"flow": "VM - FaultsWoAPIs", "brand": "VM", "total": 419256, "pct": 37.0, "mom": -0.8}, {"flow": "VM - MasterRouter", "brand": "VM", "total": 337622, "pct": 98.9, "mom": -0.1}, {"flow": "O2 - BillingandPaymentsPaymentQuery", "brand": "O2", "total": 274909, "pct": 15.2, "mom": 0.5}, {"flow": "VM - PCReductionandUpgrade", "brand": "VM", "total": 237754, "pct": 33.7, "mom": 1.2}, {"flow": "O2 - CancellationsCancel", "brand": "O2", "total": 220501, "pct": 25.8, "mom": 1.2}, {"flow": "VM - RetentionsPriceRise", "brand": "VM", "total": 210034, "pct": 19.8, "mom": 0.5}, {"flow": "O2 - BillingandPaymentsBillingQuery", "brand": "O2", "total": 167172, "pct": 14.5, "mom": 1.3}]};
+
+// ====== HELPERS ======
+const fmtBig = n => {
+  if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return Math.round(n/1e3) + 'K';
+  return n.toString();
+};
+const fmtFull = n => n.toLocaleString('en-GB');
+const pct = n => n.toFixed(1) + '%';
+
+// ====== HEADLINE NUMBERS (animated count-up) ======
+const T = DATA.total;
+
+// easing + count-up helper
+function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+function countUp(el, target, duration, formatter) {
+  if (!el || el.dataset.counted) return;
+  el.dataset.counted = '1';
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = easeOutQuart(t);
+    const current = target * eased;
+    el.innerHTML = formatter(current, t === 1);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// Set initial zero states so layout doesn't jump
+const fmtBigHTML = (n, cls) => fmtBig(Math.round(n)).replace(/([A-Za-z])/, `<span class="${cls}">$1</span>`);
+const fmtPctHTML = (n, cls) => n.toFixed(1) + `<span class="${cls}">%</span>`;
+const fmtFullStr = n => fmtFull(Math.round(n));
+
+document.getElementById('heroTotal').innerHTML = fmtBigHTML(0, 'unit');
+document.getElementById('heroContainedInline').textContent = '0';
+document.getElementById('heroPctInline').textContent = '0.0%';
+document.getElementById('kContained').innerHTML = fmtBigHTML(0, 'u');
+document.getElementById('kRate').innerHTML = fmtPctHTML(0, 'u');
+document.getElementById('kApr').innerHTML = fmtPctHTML(0, 'u');
+document.getElementById('vmTotal').textContent = '0';
+document.getElementById('vmPct').textContent = '0.0%';
+document.getElementById('o2Total').textContent = '0';
+document.getElementById('o2Pct').textContent = '0.0%';
+
+// queue of count-ups to trigger when their container enters view
+const countUpJobs = [
+  { id: 'heroTotal', target: T.total_6m, fmt: v => fmtBigHTML(v, 'unit') },
+  { id: 'heroContainedInline', target: T.contain_6m, fmt: v => fmtFullStr(v) },
+  { id: 'heroPctInline', target: T.pct_6m, fmt: v => v.toFixed(1) + '%' },
+  { id: 'kContained', target: T.contain_6m, fmt: v => fmtBigHTML(v, 'u') },
+  { id: 'kRate', target: T.pct_6m, fmt: v => fmtPctHTML(v, 'u') },
+  { id: 'kApr', target: T.pct[5], fmt: v => fmtPctHTML(v, 'u') },
+  { id: 'vmTotal', target: DATA.vm.total_6m, fmt: v => fmtFullStr(v) },
+  { id: 'vmPct', target: DATA.vm.pct_6m, fmt: v => v.toFixed(1) + '%' },
+  { id: 'o2Total', target: DATA.o2.total_6m, fmt: v => fmtFullStr(v) },
+  { id: 'o2Pct', target: DATA.o2.pct_6m, fmt: v => v.toFixed(1) + '%' },
+];
+
+// ====== SPARKLINES ======
+function drawSparkline(svgId, values, color) {
+  const svg = document.getElementById(svgId);
+  const W = 600, H = 120, pad = 10;
+  const min = Math.min(...values) - 2;
+  const max = Math.max(...values) + 2;
+  const xStep = (W - pad*2) / (values.length - 1);
+  const pointsArr = values.map((v, i) => {
+    const x = pad + i * xStep;
+    const y = pad + (H - pad*2) * (1 - (v - min) / (max - min));
+    return [x, y];
+  });
+  const points = pointsArr.map(p => `${p[0]},${p[1]}`).join(' ');
+
+  const firstX = pad;
+  const lastX = pad + (values.length-1) * xStep;
+  const areaPath = `M ${firstX},${H} L ${points.split(' ').join(' L ')} L ${lastX},${H} Z`;
+
+  const uid = svgId + '-' + Math.random().toString(36).slice(2, 7);
+
+  let html = `
+    <defs>
+      <linearGradient id="grad-${uid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+      </linearGradient>
+      <clipPath id="clip-${uid}">
+        <rect x="0" y="0" width="0" height="${H}" class="spark-clip" data-target-w="${W}"/>
+      </clipPath>
+    </defs>
+    <g clip-path="url(#clip-${uid})">
+      <path d="${areaPath}" fill="url(#grad-${uid})"/>
+      <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  `;
+  pointsArr.forEach(([x, y], i) => {
+    html += `<circle cx="${x}" cy="${y}" r="3.5" fill="${color}" class="spark-dot" style="opacity:0"/>`;
+    if (i === pointsArr.length - 1) {
+      html += `<text x="${x - 8}" y="${y - 12}" text-anchor="end" fill="${color}" font-family="Inter" font-weight="700" font-size="14" class="spark-label" style="opacity:0">${values[i].toFixed(1)}%</text>`;
+    }
+  });
+  html += `</g>`;
+  svg.innerHTML = html;
+}
+drawSparkline('vmSpark', DATA.vm.pct, '#bb0a00');
+drawSparkline('o2Spark', DATA.o2.pct, '#005EB8');
+
+function animateSparkline(svgEl) {
+  if (svgEl.dataset.animated) return;
+  svgEl.dataset.animated = '1';
+  const clip = svgEl.querySelector('.spark-clip');
+  const dots = svgEl.querySelectorAll('.spark-dot');
+  const label = svgEl.querySelector('.spark-label');
+  if (!clip) return;
+  const targetW = parseFloat(clip.getAttribute('data-target-w'));
+  const duration = 1400;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    clip.setAttribute('width', String(targetW * eased));
+    dots.forEach((dot, i) => {
+      const trig = (i + 1) / dots.length;
+      if (eased >= trig) {
+        dot.style.transition = 'opacity 0.25s';
+        dot.style.opacity = '1';
+      }
+    });
+    if (label && eased >= 0.82) {
+      label.style.transition = 'opacity 0.35s';
+      label.style.opacity = '1';
+    }
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// ====== TREND CHART ======
+function drawTrend() {
+  const svg = document.getElementById('trendChart');
+  const W = 900, H = 380;
+  const padL = 60, padR = 40, padT = 30, padB = 50;
+  const months = DATA.vm.months;
+
+  const allVals = [...DATA.vm.pct, ...DATA.o2.pct, ...DATA.total.pct];
+  const minY = Math.floor(Math.min(...allVals) - 2);
+  const maxY = Math.ceil(Math.max(...allVals) + 2);
+
+  const xStep = (W - padL - padR) / (months.length - 1);
+  const yScale = v => padT + (H - padT - padB) * (1 - (v - minY) / (maxY - minY));
+  const xScale = i => padL + i * xStep;
+
+  let html = '';
+
+  // Y gridlines — fade in
+  const ySteps = 5;
+  for (let i = 0; i <= ySteps; i++) {
+    const yVal = minY + ((maxY - minY) * i / ySteps);
+    const y = yScale(yVal);
+    html += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-width="1" class="trend-grid" style="opacity:0"/>`;
+    html += `<text x="${padL - 12}" y="${y + 4}" text-anchor="end" fill="rgba(255,255,255,0.4)" font-family="Inter" font-size="11" font-weight="500" class="trend-axis" style="opacity:0">${yVal.toFixed(0)}%</text>`;
+  }
+
+  // X labels
+  months.forEach((m, i) => {
+    html += `<text x="${xScale(i)}" y="${H - padB + 24}" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter" font-size="12" font-weight="600" letter-spacing="1" class="trend-axis" style="opacity:0">${m.toUpperCase()}</text>`;
+  });
+
+  // Helper: build a polyline path + its length so we can animate draw-on
+  function buildLine(values, color, strokeW, dasharray, lineClass) {
+    const ptsStr = values.map((v,i) => `${xScale(i)},${yScale(v)}`).join(' ');
+    // convert the polyline points into a path so getTotalLength works reliably
+    const d = values.map((v,i) => (i === 0 ? 'M' : 'L') + xScale(i) + ',' + yScale(v)).join(' ');
+    let s = `<path d="${d}" fill="none" stroke="${color}" stroke-width="${strokeW}" stroke-linecap="round" stroke-linejoin="round"${dasharray ? ` stroke-dasharray="${dasharray}"` : ''} class="${lineClass}"/>`;
+    values.forEach((v,i) => {
+      s += `<circle cx="${xScale(i)}" cy="${yScale(v)}" r="${strokeW+1.5}" fill="${color}" class="trend-dot" data-line="${lineClass}" data-idx="${i}" style="opacity:0"/>`;
+    });
+    return s;
+  }
+
+  // Combined behind
+  html += buildLine(DATA.total.pct, 'rgba(255,255,255,0.25)', 2, '4 4', 'trend-line-combined');
+  // O2
+  html += buildLine(DATA.o2.pct, '#005EB8', 3, null, 'trend-line-o2');
+  // VM
+  html += buildLine(DATA.vm.pct, '#bb0a00', 3, null, 'trend-line-vm');
+
+  const lastI = months.length - 1;
+  html += `<text x="${xScale(lastI) + 12}" y="${yScale(DATA.vm.pct[lastI]) + 4}" fill="#bb0a00" font-family="Inter" font-size="13" font-weight="700" class="trend-endlabel" style="opacity:0">${DATA.vm.pct[lastI].toFixed(1)}%</text>`;
+  html += `<text x="${xScale(lastI) + 12}" y="${yScale(DATA.o2.pct[lastI]) + 4}" fill="#005EB8" font-family="Inter" font-size="13" font-weight="700" class="trend-endlabel" style="opacity:0">${DATA.o2.pct[lastI].toFixed(1)}%</text>`;
+
+  svg.innerHTML = html;
+
+  // Prime path dash offsets so the lines start hidden
+  ['trend-line-combined','trend-line-o2','trend-line-vm'].forEach(cls => {
+    const path = svg.querySelector('.' + cls);
+    if (!path) return;
+    const len = path.getTotalLength();
+    // keep the dasharray for the combined line (dashed style); for solid lines we override via offset tricks
+    if (cls === 'trend-line-combined') {
+      // for dashed line, animate a wrapping clip rect instead
+      path.dataset.len = len;
+      path.style.opacity = '0';
+    } else {
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+    }
+  });
+}
+drawTrend();
+
+function animateTrend() {
+  const svg = document.getElementById('trendChart');
+  if (!svg || svg.dataset.animated) return;
+  svg.dataset.animated = '1';
+
+  // 1) fade in gridlines + axis labels
+  svg.querySelectorAll('.trend-grid, .trend-axis').forEach((el, i) => {
+    el.style.transition = 'opacity 0.5s ease';
+    el.style.transitionDelay = (i * 0.02) + 's';
+    requestAnimationFrame(() => { el.style.opacity = el.classList.contains('trend-grid') ? '1' : '1'; });
+  });
+
+  // 2) draw each line in sequence
+  const lineOrder = [
+    { cls: 'trend-line-combined', delay: 200, duration: 900 },
+    { cls: 'trend-line-o2',       delay: 450, duration: 1400 },
+    { cls: 'trend-line-vm',       delay: 700, duration: 1400 },
+  ];
+
+  lineOrder.forEach(({ cls, delay, duration }) => {
+    const path = svg.querySelector('.' + cls);
+    if (!path) return;
+
+    if (cls === 'trend-line-combined') {
+      // dashed combined line: fade it in rather than draw (dasharray is used for dashes)
+      setTimeout(() => {
+        path.style.transition = `opacity ${duration}ms ease`;
+        path.style.opacity = '1';
+      }, delay);
+    } else {
+      setTimeout(() => {
+        path.style.transition = `stroke-dashoffset ${duration}ms cubic-bezier(0.65, 0, 0.35, 1)`;
+        path.style.strokeDashoffset = '0';
+      }, delay);
+    }
+
+    // fade in dots along with the line progress
+    const dots = svg.querySelectorAll(`.trend-dot[data-line="${cls}"]`);
+    dots.forEach((dot, i) => {
+      const dotDelay = delay + (duration * (i / Math.max(1, dots.length - 1))) * 0.9;
+      setTimeout(() => {
+        dot.style.transition = 'opacity 0.25s ease';
+        dot.style.opacity = '1';
+      }, dotDelay);
+    });
+  });
+
+  // 3) end labels fade in after VM line finishes
+  svg.querySelectorAll('.trend-endlabel').forEach(el => {
+    setTimeout(() => {
+      el.style.transition = 'opacity 0.4s ease';
+      el.style.opacity = '1';
+    }, 700 + 1400 - 100);
+  });
+}
+
+// ====== L3 TABLE ======
+function renderTable(bodyId, rows, nameKey) {
+  const body = document.getElementById(bodyId);
+  const maxVol = Math.max(...rows.map(r => r.total));
+  rows.forEach((r, i) => {
+    const up = r.mom > 0;
+    const arrow = up ? '↑' : r.mom < 0 ? '↓' : '→';
+    const momClass = up ? 'up' : r.mom < 0 ? 'down' : '';
+    const shortName = r[nameKey].replace(/^(VM|O2) - /, '');
+    const tr = document.createElement('tr');
+    tr.className = 't-row';
+    tr.dataset.delay = (0.1 + i * 0.04);
+    tr.innerHTML = `
+      <td>
+        <span class="rank">${String(i+1).padStart(2,'0')}</span>
+        <span class="brand-tag">${r.brand}</span>
+        <span class="intent-name">${shortName}</span>
+      </td>
+      <td class="r">
+        <div class="inline-bar-wrap">
+          <span class="t-volume" data-target="${r.total}">0</span>
+          <div class="inline-bar"><div class="fill" style="width: ${(r.total/maxVol)*100}%; --delay: ${0.1 + i*0.04}s;"></div></div>
+        </div>
+      </td>
+      <td class="r"><span class="pct-val t-fade" data-target="${r.pct}" data-suffix="%">0.0%</span></td>
+      <td class="r"><span class="mom-val t-fade ${momClass}" data-target="${Math.abs(r.mom)}" data-prefix="${arrow} " data-suffix=" pp">${arrow} 0.0 pp</span></td>
+    `;
+    body.appendChild(tr);
+  });
+}
+renderTable('l3Body', DATA.l3_top, 'intent');
+renderTable('flowBody', DATA.flow_top, 'flow');
+
+// Table row observer: count-up + fade-in when row enters view
+const tableObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const row = e.target;
+    const rowDelay = parseFloat(row.dataset.delay || 0) * 1000;
+
+    // volume count-up
+    const vol = row.querySelector('.t-volume');
+    if (vol && !vol.dataset.rowDone) {
+      vol.dataset.rowDone = '1';
+      const target = parseFloat(vol.dataset.target);
+      setTimeout(() => countUp(vol, target, 1200, v => fmtFull(Math.round(v))), rowDelay);
+    }
+
+    // fade-in values
+    row.querySelectorAll('.t-fade').forEach(el => {
+      if (el.dataset.rowDone) return;
+      el.dataset.rowDone = '1';
+      const target = parseFloat(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.4s ease';
+        el.style.opacity = '0';
+        requestAnimationFrame(() => {
+          el.style.opacity = '1';
+          countUp(el, target, 900, v => prefix + v.toFixed(1) + suffix);
+        });
+      }, rowDelay + 400);
+    });
+
+    tableObserver.unobserve(row);
+  });
+}, { threshold: 0.35 });
+
+document.querySelectorAll('.t-row').forEach(row => tableObserver.observe(row));
+
+// ====== DATE ======
+document.getElementById('today').textContent =
+  new Date().toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});
+
+// ====== SCROLL REVEAL ======
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+
+// ====== CHART + COUNT-UP ANIMATIONS ON VIEWPORT ENTRY ======
+const chartObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    if (el.id === 'vmSpark' || el.id === 'o2Spark') {
+      animateSparkline(el);
+    } else if (el.id === 'trendChart') {
+      animateTrend();
+    } else if (el.dataset.countup) {
+      const job = countUpJobs.find(j => j.id === el.id);
+      if (job) countUp(el, job.target, 1600, job.fmt);
+    }
+    chartObserver.unobserve(el);
+  });
+}, { threshold: 0.3 });
+
+['vmSpark', 'o2Spark', 'trendChart'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) chartObserver.observe(el);
+});
+
+// Trigger hero/KPI count-ups immediately on load (they're already visible),
+// and observe the rest for scroll-triggered counting.
+const heroIds = ['heroTotal', 'heroContainedInline', 'heroPctInline'];
+const delayedHeroIds = ['kContained', 'kRate', 'kApr', 'vmTotal', 'vmPct', 'o2Total', 'o2Pct'];
+
+heroIds.forEach((id, i) => {
+  const el = document.getElementById(id);
+  const job = countUpJobs.find(j => j.id === id);
+  if (el && job) {
+    setTimeout(() => countUp(el, job.target, 1800, job.fmt), 300 + i * 120);
+  }
+});
+delayedHeroIds.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.dataset.countup = '1';
+    chartObserver.observe(el);
+  }
+});
+</script>
+</body>
+</html>
